@@ -1,0 +1,7 @@
+{
+   "name": "Developer Feeds",
+   "description": "A simple app to provide developer resources as Atom/RSS feeds",
+   "repository": "https://github.com/emick/dev-rss",
+   "keywords": ["java", "spring", "rss", "atom"],
+   "stack": "heroku-20"
+}
