@@ -34,9 +34,9 @@ java {
 }
 
 jar {
-	enabled = false
+	enabled = false // Only produce bootJar
 }
 
 test {
-	useJUnitPlatform()
+	useJUnitPlatform() // Use JUnit 5
 }

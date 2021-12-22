@@ -1,4 +1,4 @@
-package com.example.devrss.libs.rome;
+package com.example.devrss.adapters.feedrenderer;
 
 import com.example.devrss.core.feed.Feed;
 import com.example.devrss.core.feed.FeedItem;

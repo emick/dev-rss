@@ -21,7 +21,8 @@ public class ParsingTest {
         String relativeDependencyUrl = "org.mockito/mockito-core";
         String releaseNotesUrl = "https://github.com/mockito/mockito/releases";
 
-        String page = Files.readString(new ClassPathResource("mockito-core.html").getFile().toPath());
+        String page = TestFiles.mockitoPage();
+
         List<FeedItem> items = MavenCentralFeed.parseMavenCentralFeedItems(feedName, relativeDependencyUrl, releaseNotesUrl, page);
         assertEquals(10, items.size());
 

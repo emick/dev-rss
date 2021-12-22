@@ -1,17 +1,25 @@
 package com.example.devrss.core.feed;
 
-import com.example.devrss.core.util.HttpUtil;
+import com.example.devrss.core.util.WebPageFetcher;
 import org.jsoup.Jsoup;
 
+import javax.inject.Named;
 import java.util.List;
 
+@Named
 public class MavenCentralFeed {
+
+    private WebPageFetcher webPageFetcher;
+
+    public MavenCentralFeed(WebPageFetcher webPageFetcher) {
+        this.webPageFetcher = webPageFetcher;
+    }
 
     /**
      * @return Releases from Maven Central (not RCs, betas or such) as a Feed
      */
-    public static Feed provideReleaseFeed(String feedName, String relativeDependencyUrl, String releaseNotesUrl) {
-        var htmlPage = HttpUtil.fetchWebPageAsString("https://mvnrepository.com/artifact/" + relativeDependencyUrl);
+    public Feed provideReleaseFeed(String feedName, String relativeDependencyUrl, String releaseNotesUrl) {
+        var htmlPage = webPageFetcher.fetchAsString("https://mvnrepository.com/artifact/" + relativeDependencyUrl);
         List<FeedItem> entries = parseMavenCentralFeedItems(feedName, relativeDependencyUrl, releaseNotesUrl, htmlPage);
         return new Feed(feedName, entries);
     }
