@@ -1,10 +1,14 @@
 package com.example.devrss.core.feed;
 
 import com.example.devrss.core.util.WebPageFetcher;
+import com.google.common.collect.Streams;
 import org.jsoup.Jsoup;
 
 import javax.inject.Named;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static com.example.devrss.core.util.DateUtil.tryParseMavenCentralDate;
 
 @Named
 public class MavenCentralFeed {
@@ -26,20 +30,36 @@ public class MavenCentralFeed {
 
     public static List<FeedItem> parseMavenCentralFeedItems(String feedName,
                                                             String relativeDependencyUrl, String releaseNotesUrl, String htmlPage) {
-
-        return parseReleaseVersions(htmlPage).stream()
+        return parseReleaseVersions(htmlPage)
                 .limit(10) // No need to list more for feeds
-                .map(versionName -> new FeedItem(versionName,
+                .map(pair -> new FeedItem(pair.version,
                         feedName,
-                        "https://mvnrepository.com/artifact/" + relativeDependencyUrl + "-" + versionName,
+                        "https://mvnrepository.com/artifact/" + relativeDependencyUrl + "-" + pair.version,
                         releaseNotesUrl,
-                        null)) // Date does not matter much
+                        tryParseMavenCentralDate(pair.date)))
                 .toList();
     }
 
-    private static List<String> parseReleaseVersions(String webPage) {
-        return Jsoup.parse(webPage)
-                .select(".release") // Note: filters beta, RC, etc. versions!
+    private static Stream<VersionDatePair> parseReleaseVersions(String webPage) {
+        var document = Jsoup.parse(webPage);
+
+        var versionNames = document
+                .select(".vbtn") // All versions, including beta and rc
                 .eachText();
+
+        var dates = document
+                // Number of td elements changes per row. Taking last-of-type is the stable way to pick date
+                .select("table.versions > tbody > tr > td:last-of-type")
+                .eachText();
+
+        if (versionNames.size() != dates.size()) {
+            var msg = "Fetching cells from table failed. Found %s version names and %s dates"
+                    .formatted(versionNames.size(), dates.size());
+            throw new RuntimeException(msg);
+        }
+
+        return Streams.zip(versionNames.stream(), dates.stream(), VersionDatePair::new);
     }
+
+    private record VersionDatePair(String version, String date) {}
 }

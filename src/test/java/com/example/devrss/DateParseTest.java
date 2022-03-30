@@ -20,4 +20,9 @@ public class DateParseTest {
     public void shouldParseJpaBuddyDate() {
         assertEquals(toJavaUtil(LocalDate.of(2017, 12, 20)), DateUtil.tryParseJpaBuddyDate("December 20, 2017"));
     }
+
+    @Test
+    public void shouldParseMavenCentralDate() {
+        assertEquals(toJavaUtil(LocalDate.of(2017, 12, 1)), DateUtil.tryParseMavenCentralDate("Dec, 2017"));
+    }
 }
