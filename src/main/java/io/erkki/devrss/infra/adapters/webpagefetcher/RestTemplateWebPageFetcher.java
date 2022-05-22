@@ -1,6 +1,6 @@
-package io.erkki.devrss.adapters.webpagefetcher;
+package io.erkki.devrss.infra.adapters.webpagefetcher;
 
-import io.erkki.devrss.core.util.WebPageFetcher;
+import io.erkki.devrss.core.ports.WebPageFetcher;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;

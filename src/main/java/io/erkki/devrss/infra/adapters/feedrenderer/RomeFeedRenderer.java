@@ -1,8 +1,8 @@
-package io.erkki.devrss.adapters.feedrenderer;
+package io.erkki.devrss.infra.adapters.feedrenderer;
 
 import io.erkki.devrss.core.feed.Feed;
 import io.erkki.devrss.core.feed.FeedItem;
-import io.erkki.devrss.core.feed.FeedRenderer;
+import io.erkki.devrss.core.ports.FeedRenderer;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 import com.rometools.rome.feed.synd.SyndFeed;

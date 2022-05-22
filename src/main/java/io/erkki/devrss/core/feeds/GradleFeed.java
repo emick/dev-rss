@@ -3,7 +3,7 @@ package io.erkki.devrss.core.feeds;
 import io.erkki.devrss.core.feed.Feed;
 import io.erkki.devrss.core.feed.FeedItem;
 import io.erkki.devrss.core.util.DateUtil;
-import io.erkki.devrss.core.util.WebPageFetcher;
+import io.erkki.devrss.core.ports.WebPageFetcher;
 import com.google.common.collect.Lists;
 import org.jsoup.Jsoup;
 
@@ -34,6 +34,8 @@ public class GradleFeed {
         List<FeedItem> entries = versionDatePairs.stream()
                 .map(GradleFeed::gradleVersionDatePairToFeedItem)
                 .toList();
+
+
 
         return new Feed("Gradle", entries);
     }

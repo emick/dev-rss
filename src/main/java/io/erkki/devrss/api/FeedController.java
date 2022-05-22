@@ -1,10 +1,10 @@
 package io.erkki.devrss.api;
 
-import io.erkki.devrss.core.feed.FeedRenderer;
+import io.erkki.devrss.core.ports.FeedRenderer;
 import io.erkki.devrss.core.feeds.GradleFeed;
 import io.erkki.devrss.core.feeds.JpaBuddyFeed;
 import io.erkki.devrss.core.feeds.MavenCentralFeed;
-import io.erkki.devrss.core.util.WebPageFetcher;
+import io.erkki.devrss.core.ports.WebPageFetcher;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
