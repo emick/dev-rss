@@ -28,17 +28,17 @@ GET /feed/vaadin
 
 ## Customizing
 
-Clone this repository and add more feeds to `FeedController.java`.
+First, clone this repository and add more feeds to `FeedController.java`.
 
 Default port is 8081 which is customizable in `src/main/resources/application.properties` and can be overridden with `SERVER_PORT` environment variable.
 
 ## Production Readiness
 
-This should be fine.
+This is a hobby project, though this should be fine for public production use:
 
   * All endpoints are read-only
   * All endpoints are cached (5 min cache)
-  * Spring Boot Actuator is not in use
+  * Spring Boot Actuator is not in use (as it might expose dangerous endpoints)
   * Log4J is not in use ;)
 
 ## Deploy to Heroku

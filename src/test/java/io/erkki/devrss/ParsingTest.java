@@ -1,15 +1,15 @@
-package com.example.devrss;
+package io.erkki.devrss;
 
-import static com.example.devrss.core.util.DateUtil.toJavaUtil;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import io.erkki.devrss.core.util.DateUtil;
 import org.junit.jupiter.api.Test;
 
-import com.example.devrss.core.feed.FeedItem;
-import com.example.devrss.core.feed.MavenCentralFeed;
+import io.erkki.devrss.core.feed.FeedItem;
+import io.erkki.devrss.core.feeds.MavenCentralFeed;
 
 public class ParsingTest {
 
@@ -29,6 +29,6 @@ public class ParsingTest {
         assertEquals("Mockito", item.author());
         assertEquals("https://mvnrepository.com/artifact/org.mockito/mockito-core-4.1.0", item.identifier());
         assertEquals("https://github.com/mockito/mockito/releases", item.link());
-        assertEquals(toJavaUtil(LocalDate.of(2021, 11, 1)), item.publishedDate());
+        assertEquals(DateUtil.toJavaUtil(LocalDate.of(2021, 11, 1)), item.publishedDate());
     }
 }

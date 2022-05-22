@@ -1,4 +1,4 @@
-package com.example.devrss.core.feed;
+package io.erkki.devrss.core.feed;
 
 import java.util.Date;
 

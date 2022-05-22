@@ -1,21 +1,15 @@
-package com.example.devrss.api;
+package io.erkki.devrss.api;
 
-import com.example.devrss.core.util.WebPageFetcher;
-import com.example.devrss.core.feed.Feed;
-import com.example.devrss.core.feed.FeedItem;
-import com.example.devrss.core.feed.FeedRenderer;
-import com.example.devrss.core.feed.MavenCentralFeed;
-import com.example.devrss.core.util.DateUtil;
-import com.google.common.collect.Lists;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
+import io.erkki.devrss.core.feed.FeedRenderer;
+import io.erkki.devrss.core.feeds.GradleFeed;
+import io.erkki.devrss.core.feeds.JpaBuddyFeed;
+import io.erkki.devrss.core.feeds.MavenCentralFeed;
+import io.erkki.devrss.core.util.WebPageFetcher;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Provides the atom feeds.
@@ -29,10 +23,20 @@ public class FeedController {
     private final WebPageFetcher webPageFetcher;
     private final MavenCentralFeed mavenCentralFeed;
 
-    public FeedController(FeedRenderer feedRenderer, WebPageFetcher webPageFetcher, MavenCentralFeed mavenCentralFeed) {
+    private final GradleFeed gradleFeed;
+
+    private final JpaBuddyFeed jpaBuddyFeed;
+
+    public FeedController(FeedRenderer feedRenderer,
+                          WebPageFetcher webPageFetcher,
+                          MavenCentralFeed mavenCentralFeed,
+                          GradleFeed gradleFeed,
+                          JpaBuddyFeed jpaBuddyFeed) {
         this.feedRenderer = feedRenderer;
         this.webPageFetcher = webPageFetcher;
         this.mavenCentralFeed = mavenCentralFeed;
+        this.gradleFeed = gradleFeed;
+        this.jpaBuddyFeed = jpaBuddyFeed;
     }
 
     @GetMapping(value = "/mockito", produces = MediaType.APPLICATION_ATOM_XML_VALUE)
@@ -167,57 +171,11 @@ public class FeedController {
 
     @GetMapping(value = "/gradle", produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     public String gradle() {
-        var page = Jsoup.parse(webPageFetcher.fetchAsString("https://gradle.org/releases/"));
-
-        // The page does not have any class names to pick and does not nest version and date together.
-        var results = page.select(".u-text-with-icon span:nth-of-type(2)").eachText();
-
-        if (results.size() % 2 != 0)
-            throw new RuntimeException("Found indivisible amount of version and date texts: " + results.size());
-
-        List<List<String>> versionDatePairs = Lists.partition(results, 2);
-
-        List<FeedItem> entries = versionDatePairs.stream()
-                .map(FeedController::gradleVersionDatePairToFeedItem)
-                .toList();
-
-        return feedRenderer.render(new Feed("Gradle", entries));
-    }
-
-    private static FeedItem gradleVersionDatePairToFeedItem(List<String> versionDatePair) {
-        String version = versionDatePair.get(0);
-        var link = "https://docs.gradle.org/" + version.substring(1) + "/release-notes";
-        return new FeedItem(
-                version,
-                "Gradle",
-                link,
-                link,
-                DateUtil.tryParseGradleDate(versionDatePair.get(1)));
+        return feedRenderer.render(gradleFeed.get());
     }
 
     @GetMapping(value = "/jpabuddyblog", produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     public String jpaBuddyBlog() {
-        var url = "https://www.jpa-buddy.com/blog/";
-
-        String body = webPageFetcher.fetchAsString(url);
-        var items = Jsoup.parse(body, url)
-                .select(".post").stream()
-                .map(FeedController::jpaBuddyPostToFeedItem)
-                .toList();
-
-        return feedRenderer.render(new Feed("JPA-Buddy blog", items));
-    }
-
-    private static FeedItem jpaBuddyPostToFeedItem(Element post) {
-        String title = post.select(".title").text();
-        String date = post.select(".date").text();
-        String link = post.select(".link").attr("abs:href");
-
-        return new FeedItem(
-                title + " " + date,
-                "JPA-Buddy Blog",
-                link,
-                link,
-                DateUtil.tryParseJpaBuddyDate(date));
+        return feedRenderer.render(jpaBuddyFeed.get());
     }
 }

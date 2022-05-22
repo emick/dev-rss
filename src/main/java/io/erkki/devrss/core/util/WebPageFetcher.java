@@ -1,4 +1,4 @@
-package com.example.devrss.core.util;
+package io.erkki.devrss.core.util;
 
 public interface WebPageFetcher {
 

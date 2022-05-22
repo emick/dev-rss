@@ -1,7 +1,7 @@
-package com.example.devrss;
+package io.erkki.devrss;
 
-import com.example.devrss.api.FeedController;
-import com.example.devrss.core.util.WebPageFetcher;
+import io.erkki.devrss.api.FeedController;
+import io.erkki.devrss.core.util.WebPageFetcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

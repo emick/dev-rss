@@ -1,4 +1,4 @@
-package com.example.devrss.core.util;
+package io.erkki.devrss.core.util;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -18,7 +18,7 @@ public class DateUtil {
     }
 
     public static Date tryParseMavenCentralDate(String date) {
-        YearMonth yearMonth =  YearMonth.parse(date, DateTimeFormatter.ofPattern("MMM, yyyy", Locale.ENGLISH));
+        YearMonth yearMonth = YearMonth.parse(date, DateTimeFormatter.ofPattern("MMM, yyyy", Locale.ENGLISH));
         return toJavaUtil(yearMonth.atDay(1));
     }
 

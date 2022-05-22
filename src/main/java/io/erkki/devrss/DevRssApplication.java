@@ -1,4 +1,4 @@
-package com.example.devrss;
+package io.erkki.devrss;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.boot.SpringApplication;

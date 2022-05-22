@@ -1,13 +1,13 @@
-package com.example.devrss;
+package io.erkki.devrss;
 
-import static com.example.devrss.core.util.DateUtil.toJavaUtil;
+import static io.erkki.devrss.core.util.DateUtil.toJavaUtil;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import com.example.devrss.core.util.DateUtil;
+import io.erkki.devrss.core.util.DateUtil;
 
 public class DateParseTest {
 

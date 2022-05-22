@@ -1,4 +1,4 @@
-package com.example.devrss;
+package io.erkki.devrss;
 
 import org.springframework.core.io.ClassPathResource;
 

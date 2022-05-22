@@ -1,19 +1,20 @@
-package com.example.devrss.core.feed;
+package io.erkki.devrss.core.feeds;
 
-import com.example.devrss.core.util.WebPageFetcher;
+import io.erkki.devrss.core.feed.Feed;
+import io.erkki.devrss.core.feed.FeedItem;
+import io.erkki.devrss.core.util.WebPageFetcher;
 import com.google.common.collect.Streams;
+import io.erkki.devrss.core.util.DateUtil;
 import org.jsoup.Jsoup;
 
 import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.example.devrss.core.util.DateUtil.tryParseMavenCentralDate;
-
 @Named
 public class MavenCentralFeed {
 
-    private WebPageFetcher webPageFetcher;
+    private final WebPageFetcher webPageFetcher;
 
     public MavenCentralFeed(WebPageFetcher webPageFetcher) {
         this.webPageFetcher = webPageFetcher;
@@ -36,7 +37,7 @@ public class MavenCentralFeed {
                         feedName,
                         "https://mvnrepository.com/artifact/" + relativeDependencyUrl + "-" + pair.version,
                         releaseNotesUrl,
-                        tryParseMavenCentralDate(pair.date)))
+                        DateUtil.tryParseMavenCentralDate(pair.date)))
                 .toList();
     }
 
@@ -61,5 +62,6 @@ public class MavenCentralFeed {
         return Streams.zip(versionNames.stream(), dates.stream(), VersionDatePair::new);
     }
 
-    private record VersionDatePair(String version, String date) {}
+    private record VersionDatePair(String version, String date) {
+    }
 }
