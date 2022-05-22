@@ -18,8 +18,10 @@ public class DateUtil {
     }
 
     public static Date tryParseMavenCentralDate(String date) {
+        // Maven central does not list exact dates in the main page. Instead it uses "Dec 2020" like format.
+        // To simplify and not fetch a page for each version, we assume last day of month.
         YearMonth yearMonth = YearMonth.parse(date, DateTimeFormatter.ofPattern("MMM, yyyy", Locale.ENGLISH));
-        return toJavaUtil(yearMonth.atDay(1));
+        return toJavaUtil(yearMonth.atEndOfMonth());
     }
 
     public static LocalDate tryParseEnglishDate(String date, String format) {
