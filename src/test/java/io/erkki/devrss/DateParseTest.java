@@ -23,6 +23,6 @@ public class DateParseTest {
 
     @Test
     public void shouldParseMavenCentralDate() {
-        assertEquals(toJavaUtil(LocalDate.of(2017, 12, 1)), DateUtil.tryParseMavenCentralDate("Dec, 2017"));
+        assertEquals(toJavaUtil(LocalDate.of(2017, 12, 31)), DateUtil.tryParseMavenCentralDate("Dec, 2017"));
     }
 }

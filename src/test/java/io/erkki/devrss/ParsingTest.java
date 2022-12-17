@@ -29,6 +29,6 @@ public class ParsingTest {
         assertEquals("Mockito", item.author());
         assertEquals("https://mvnrepository.com/artifact/org.mockito/mockito-core-4.1.0", item.identifier());
         assertEquals("https://github.com/mockito/mockito/releases", item.link());
-        assertEquals(DateUtil.toJavaUtil(LocalDate.of(2021, 11, 1)), item.publishedDate());
+        assertEquals(DateUtil.toJavaUtil(LocalDate.of(2021, 11, 30)), item.publishedDate());
     }
 }

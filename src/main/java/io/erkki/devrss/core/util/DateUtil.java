@@ -3,6 +3,7 @@ package io.erkki.devrss.core.util;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
@@ -29,6 +30,6 @@ public class DateUtil {
     }
 
     public static Date toJavaUtil(LocalDate localDate) {
-        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return Date.from(localDate.atTime(12,0).toInstant(ZoneOffset.UTC));
     }
 }
