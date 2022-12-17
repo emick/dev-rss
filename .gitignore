@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 deploy.sh
+dev-rss.systemd
 
 ### STS ###
 .apt_generated

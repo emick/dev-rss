@@ -38,6 +38,10 @@ jar {
 	enabled = false // Only produce bootJar
 }
 
+bootJar {
+	launchScript()
+}
+
 test {
 	useJUnitPlatform() // Use JUnit 5
 }
