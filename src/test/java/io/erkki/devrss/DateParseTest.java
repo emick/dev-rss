@@ -19,6 +19,8 @@ public class DateParseTest {
     @Test
     public void shouldParseJpaBuddyDate() {
         assertEquals(toJavaUtil(LocalDate.of(2017, 12, 20)), DateUtil.tryParseJpaBuddyDate("December 20, 2017"));
+        assertEquals(toJavaUtil(LocalDate.of(2022, 12, 6)), DateUtil.tryParseJpaBuddyDate("December 6, 2022"));
+
     }
 
     @Test

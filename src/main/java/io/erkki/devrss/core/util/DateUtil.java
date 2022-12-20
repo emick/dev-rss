@@ -2,7 +2,6 @@ package io.erkki.devrss.core.util;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -11,7 +10,7 @@ import java.util.Locale;
 public class DateUtil {
 
     public static Date tryParseJpaBuddyDate(String date) {
-        return toJavaUtil(tryParseEnglishDate(date, "MMMM dd, yyyy"));
+        return toJavaUtil(tryParseEnglishDate(date, "MMMM d, yyyy"));
     }
 
     public static Date tryParseGradleDate(String date) {
