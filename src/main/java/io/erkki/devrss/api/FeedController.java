@@ -4,7 +4,6 @@ import io.erkki.devrss.core.ports.FeedRenderer;
 import io.erkki.devrss.core.feeds.GradleFeed;
 import io.erkki.devrss.core.feeds.JpaBuddyFeed;
 import io.erkki.devrss.core.feeds.MavenCentralFeed;
-import io.erkki.devrss.core.ports.WebPageFetcher;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class FeedController {
 
     private final FeedRenderer feedRenderer;
-    private final WebPageFetcher webPageFetcher;
     private final MavenCentralFeed mavenCentralFeed;
 
     private final GradleFeed gradleFeed;
@@ -28,12 +26,10 @@ public class FeedController {
     private final JpaBuddyFeed jpaBuddyFeed;
 
     public FeedController(FeedRenderer feedRenderer,
-                          WebPageFetcher webPageFetcher,
                           MavenCentralFeed mavenCentralFeed,
                           GradleFeed gradleFeed,
                           JpaBuddyFeed jpaBuddyFeed) {
         this.feedRenderer = feedRenderer;
-        this.webPageFetcher = webPageFetcher;
         this.mavenCentralFeed = mavenCentralFeed;
         this.gradleFeed = gradleFeed;
         this.jpaBuddyFeed = jpaBuddyFeed;

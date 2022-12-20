@@ -15,7 +15,6 @@ public class GradleFeed {
 
     private final WebPageFetcher http;
 
-    // add constructor
     public GradleFeed(WebPageFetcher http) {
         this.http = http;
     }
